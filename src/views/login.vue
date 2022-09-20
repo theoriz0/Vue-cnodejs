@@ -51,8 +51,7 @@
                             loginname: res.data.loginname,
                             avatarUrl: res.data.avatar_url,
                             expireAt: expireAt,
-                            token: res.data.token,
-                            tokenHead: res.data.token_head
+                            token: res.data.token_head + res.data.token
                         };
                         window.window.sessionStorage.user = JSON.stringify(user);
                         this.$store.dispatch('setUserInfo', user);
