@@ -58,14 +58,6 @@ const routers = [{
         });
     }
 }, {
-    path: '/about',
-    name: 'about',
-    component(resolve) {
-        require.ensure(['./views/about.vue'], () => {
-            resolve(require('./views/about.vue'));
-        });
-    }
-}, {
     path: '/login',
     name: 'login',
     component(resolve) {
