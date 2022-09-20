@@ -16,6 +16,7 @@ module.exports = {
     env: require('./dev.env'),
     port: 8020,
     proxyTable: {
-    }
+    },
+    devtool: 'source-map'
   }
 }
