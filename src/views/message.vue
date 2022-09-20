@@ -45,7 +45,7 @@
         data() {
             return {
                 showMenu: false,
-                selectItem: 2,
+                selectItem: 1,
                 message: {},
                 noData: false,
                 currentData: [],
