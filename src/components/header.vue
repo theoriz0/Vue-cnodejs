@@ -7,9 +7,9 @@
                 <div class="toolbar-nav" @click="openMenu" v-if="fixHead">
                 </div>
                 <span v-text="pageType"></span>
-                <i class="num" v-if="messageCount !== null"> {{messageCount}}</i>
+                <i class="num" v-if="messageCount != undefined"> {{messageCount}}</i>
                 <router-link to="/add">
-                    <i v-if="needAdd" v-show="!messageCount || messageCount <= 0" class="add-icon">创建主题</i>
+                    <i v-if="needAdd" v-show="messageCount == undefined" class="add-icon">创建主题</i>
                 </router-link>
             </div>
         </header>
