@@ -29,7 +29,7 @@
                                 </span>
                             </p>
                             <p>
-                                <time>{{item.create_at | getLastTimeStr(true)}}</time>
+                                <time>{{item.created_at | getLastTimeStr(true)}}</time>
                                 <time>{{item.last_reply_at | getLastTimeStr(true)}}</time>
                             </p>
                         </div>
