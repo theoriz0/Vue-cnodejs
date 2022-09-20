@@ -45,12 +45,12 @@
                     dataType: 'json',
                     success: (res) => {
                         let jwtPayload = JSON.parse(atob(res.data.token.split('.')[1]));
-                        let expireAt = new Date(jwtPayload.exp * 1000);
+                        let expire = jwtPayload.exp * 1000;
                         let user = {
                             userId: res.data.id,
                             loginname: res.data.loginname,
                             avatarUrl: res.data.avatar_url,
-                            expireAt: expireAt,
+                            expire: expire,
                             token: res.data.token_head + res.data.token
                         };
                         window.window.sessionStorage.user = JSON.stringify(user);
