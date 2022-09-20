@@ -116,7 +116,7 @@
             this.topicId = this.$route.params.id;
 
             // 加载主题数据
-            $.get('https://cnodejs.org/api/v1/topic/' + this.topicId, (d) => {
+            $.get('http://localhost:8088/topic/' + this.topicId, (d) => {
                 if (d && d.data) {
                     this.topic = d.data;
                 } else {
@@ -159,18 +159,17 @@
                 } else {
                     $.ajax({
                         type: 'POST',
-                        url: 'https://cnodejs.org/api/v1/reply/' + item.id + '/ups',
-                        data: {
-                            accesstoken: this.userInfo.token
+                        url: 'http://localhost:8088/reply/' + item.id + '/ups',
+                        headers: {
+                            'Authorization': this.userInfo.token
                         },
-                        dataType: 'json',
                         success: (res) => {
                             if (res.success) {
                                 if (res.action === 'down') {
-                                    let index = $.inArray(this.userInfo.userId, item.ups);
+                                    let index = $.inArray(this.userInfo.user_id, item.ups);
                                     item.ups.splice(index, 1);
                                 } else {
-                                    item.ups.push(this.userInfo.userId);
+                                    item.ups.push(this.userInfo.user_id);
                                 }
                             }
                         },

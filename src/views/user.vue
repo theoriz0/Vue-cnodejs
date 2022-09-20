@@ -71,7 +71,7 @@
                     });
                     return false;
                 }
-                $.get('https://cnodejs.org/api/v1/user/' + loginname, (d) => {
+                $.get('http://localhost:8088/user/' + loginname, (d) => {
                     if (d && d.data) {
                         let data = d.data;
                         this.user = data;

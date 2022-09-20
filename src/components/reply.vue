@@ -44,22 +44,20 @@
                     this.hasErr = true;
                 } else {
                     let time = new Date();
-                    let linkUsers = utils.linkUsers(this.content);
-                    let htmlText = markdown.toHTML(linkUsers) + this.author_txt;
-                    let replyContent = $('<div class="markdown-text"></div>').append(htmlText)[0].outerHTML;
                     let postData = {
-                        accesstoken: this.userInfo.token,
-                        content: this.content + this.author_txt
+                        content: this.content
                     };
-
                     if (this.replyId) {
                         postData.reply_id = this.replyId;
                     }
                     $.ajax({
                         type: 'POST',
-                        url: `https://cnodejs.org/api/v1/topic/${this.topicId}/replies`,
+                        url: `http://localhost:8088/topic/${this.topicId}/replies`,
                         data: postData,
                         dataType: 'json',
+                        headers: {
+                            'Authorization': this.userInfo.token
+                        },
                         success: (res) => {
                             if (res.success) {
                                 this.topic.replies.push({

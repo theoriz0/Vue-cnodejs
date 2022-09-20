@@ -66,12 +66,14 @@
 
                 let postData = {
                     ...this.topic,
-                    content: this.topic.content + this.authorTxt,
-                    accesstoken: this.userInfo.token
+                    content: this.topic.content
                 };
                 $.ajax({
                     type: 'POST',
-                    url: 'https://cnodejs.org/api/v1/topics',
+                    url: 'http://localhost:8088/topics',
+                    headers: {
+                        'Authorization': this.userInfo.token
+                    },
                     data: postData,
                     dataType: 'json',
                     success: (res) => {
