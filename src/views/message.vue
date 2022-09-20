@@ -58,20 +58,28 @@
             })
         },
         mounted() {
-            $.get('https://cnodejs.org/api/v1/messages?accesstoken=' + this.userInfo.token, (d) => {
-                if (d && d.data) {
-                    this.message = d.data;
-                    this.no_read_len = d.data.hasnot_read_messages.length;
-                    if (d.data.hasnot_read_messages.length > 0) {
-                        this.currentData = d.data.hasnot_read_messages;
-                    } else {
-                        this.currentData = d.data.has_read_messages;
-                        this.selectItem = 2;
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8088/messages',
+                headers: {
+                    'Authorization': this.userInfo.token
+                },
+                success:
+                    (d) => {
+                        if (d && d.data) {
+                            this.message = d.data;
+                            this.no_read_len = d.data.hasnot_read_messages.length;
+                            if (d.data.hasnot_read_messages.length > 0) {
+                                this.currentData = d.data.hasnot_read_messages;
+                            } else {
+                                this.currentData = d.data.has_read_messages;
+                                this.selectItem = 2;
+                            }
+                            this.noData = this.currentData.length === 0;
+                        } else {
+                            this.noData = true;
+                        }
                     }
-                    this.noData = this.currentData.length === 0;
-                } else {
-                    this.noData = true;
-                }
             });
         },
         methods: {
@@ -83,11 +91,16 @@
             },
             // 标记所有为已读
             markall() {
-                $.post('https://cnodejs.org/api/v1/message/mark_all', {
-                    accesstoken: this.userInfo.token
-                }, (d) => {
-                    if (d && d.success) {
-                        window.location.reload();
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:8088/message/mark_all',
+                    headers: {
+                        'Authorization': this.userInfo.token
+                    },
+                    success: (d) => {
+                        if (d && d.success) {
+                            window.location.reload();
+                        }
                     }
                 });
             },

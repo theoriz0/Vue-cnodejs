@@ -32,7 +32,8 @@ router.beforeEach((to, from, next) => {
     // $('html, body, #page').removeClass('scroll-hide');
     $('body').css('overflow', 'auto');
     if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (store.state.userInfo.userId) {
+        let tokenNotExpired = store.state.userInfo.expire > new Date();
+        if (store.state.userInfo.userId && tokenNotExpired) {
             next();
         } else {
             next({

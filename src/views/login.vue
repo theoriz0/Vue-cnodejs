@@ -4,7 +4,8 @@
         </nv-head>
         <section class="page-body">
             <div class="label">
-                <input class="txt" type="text" placeholder="Access Token" v-model="token" maxlength="36">
+                <input class="txt" type="text" placeholder="用户名" v-model="loginname" maxlength="20">
+                <input class="txt" type="password" placeholder="密码" v-model="password" maxlength="100">
             </div>
             <div class="label">
                 <a class="button" @click="logon">登录</a>
@@ -20,28 +21,38 @@
     export default {
         data() {
             return {
-                token: ''
+                loginname: '',
+                password: ''
             };
         },
         methods: {
             logon() {
-                if (this.token === '') {
-                    this.$alert('令牌格式错误,应为36位UUID字符串');
+                if (this.loginname === '') {
+                    this.$alert('请输入用户名');
+                    return false;
+                }
+                if (this.password === '') {
+                    this.$alert('请输入密码');
                     return false;
                 }
                 $.ajax({
                     type: 'POST',
-                    url: 'https://cnodejs.org/api/v1/accesstoken',
+                    url: 'http://localhost:8088/login',
                     data: {
-                        accesstoken: this.token
+                        loginname: this.loginname,
+                        password: this.password
                     },
                     dataType: 'json',
                     success: (res) => {
+                        let jwtPayload = JSON.parse(atob(res.data.token.split('.')[1]));
+                        let expireAt = new Date(jwtPayload.exp * 1000);
                         let user = {
-                            loginname: res.loginname,
-                            avatar_url: res.avatar_url,
-                            userId: res.id,
-                            token: this.token
+                            userId: res.data.id,
+                            loginname: res.data.loginname,
+                            avatarUrl: res.data.avatar_url,
+                            expireAt: expireAt,
+                            token: res.data.token,
+                            tokenHead: res.data.token_head
                         };
                         window.window.sessionStorage.user = JSON.stringify(user);
                         this.$store.dispatch('setUserInfo', user);
