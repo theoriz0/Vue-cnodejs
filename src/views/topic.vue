@@ -165,11 +165,11 @@
                         },
                         success: (res) => {
                             if (res.success) {
-                                if (res.action === 'down') {
-                                    let index = $.inArray(this.userInfo.user_id, item.ups);
+                                if (res.data.action === 'down') {
+                                    let index = $.inArray(this.userInfo.userId, item.ups);
                                     item.ups.splice(index, 1);
                                 } else {
-                                    item.ups.push(this.userInfo.user_id);
+                                    item.ups.push(this.userInfo.userId);
                                 }
                             }
                         },
