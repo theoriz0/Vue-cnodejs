@@ -5,7 +5,9 @@
             <img class="u-img" :src="user.avatar_url" /><br/>
             <span class="u-name" v-text="user.loginname"></span>
             <div class="u-bottom">
-                <span class="u-time" v-text="getLastTimeStr(user.create_at, false)"></span>
+                <span class="u-time">
+                创建于: {{getLastTimeStr(user.created_at, false)}}
+                </span>
                 <span class="u-score">积分：{{user.score}}</span>
             </div>
         </section>

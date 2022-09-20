@@ -16,7 +16,7 @@
                 <div class="col">
                     <span>{{topic.author.loginname}}</span>
                     <time>
-                        发布于:{{topic.create_at | getLastTimeStr(true)}}
+                        发布于:{{topic.created_at | getLastTimeStr(true)}}
                     </time>
                 </div>
                 <div class="right">
@@ -48,7 +48,7 @@
                                     <span class="name" v-text="item.author.loginname"></span>
                                     <span class="name mt10">
                                         <span></span>
-                                        发布于:{{item.create_at | getLastTimeStr(true)}}</span>
+                                        发布于:{{item.created_at | getLastTimeStr(true)}}</span>
                                 </span>
                                 <span class="cr">
                                     <span class="iconfont icon"

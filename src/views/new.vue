@@ -15,11 +15,11 @@
             <div class="line">
                 <input class="add-title" v-model="topic.title"
                         type="text" :class="{'err':err=='title'}"
-                        placeholder="标题，字数10字以上" max-length="100"/>
+                        placeholder="标题，字数5字以上" max-length="100"/>
             </div>
             <textarea v-model="topic.content" rows="35" class="add-content"
                 :class="{'err':err=='content'}"
-                placeholder='回复支持Markdown语法,请注意标记代码'>
+                placeholder='内容'>
             </textarea>
         </div>
     </div>
@@ -40,8 +40,7 @@
                     title: '',
                     content: ''
                 },
-                err: '',
-                authorTxt: '<br/><br/><a class="from" href="https://github.com/shinygang/Vue-cnodejs">I‘m webapp-cnodejs-vue</a>'
+                err: ''
             };
         },
         computed: {
@@ -51,11 +50,11 @@
         },
         methods: {
             addTopic() {
-                console.log(this.userInfo);
+                // console.log(this.userInfo);
                 let title = $.trim(this.topic.title);
                 let contents = $.trim(this.topic.content);
 
-                if (!title || title.length < 10) {
+                if (!title || title.length <= 5) {
                     this.err = 'title';
                     return false;
                 }
@@ -84,8 +83,8 @@
                         }
                     },
                     error: (res) => {
-                        let error = JSON.parse(res.responseText);
-                        this.$alert(error.error_msg);
+                        // let error = JSON.parse(res);
+                        this.$alert('创建主题失败');
                         return false;
                     }
                 });

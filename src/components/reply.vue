@@ -4,7 +4,7 @@
         <textarea id="content" rows="8" class="text"
             :class="{'err':hasErr}"
             v-model="content"
-            placeholder='回复支持Markdown语法,请注意标记代码'>
+            placeholder='请输入回复'>
         </textarea>
         <a class="button" @click="addReply">确定</a>
     </section>
@@ -12,8 +12,8 @@
 </template>
 <script>
     import $ from 'webpack-zepto';
-    const utils = require('../libs/utils');
-    const markdown = require('markdown').markdown;
+    // const utils = require('../libs/utils');
+    // const markdown = require('markdown').markdown;
     import {
         mapGetters
     } from 'vuex';
@@ -24,8 +24,7 @@
         data() {
             return {
                 hasErr: false,
-                content: '',
-                author_txt: '<br/><br/><a class="form" href="https://github.com/shinygang/Vue-cnodejs">I‘m webapp-cnodejs-vue</a>'
+                content: ''
             };
         },
         computed: {
@@ -66,9 +65,9 @@
                                         loginname: this.userInfo.loginname,
                                         avatar_url: this.userInfo.avatar_url
                                     },
-                                    content: replyContent,
+                                    content: this.content,
                                     ups: [],
-                                    create_at: time
+                                    created_at: time
                                 });
                             }
                             this.content = '';

@@ -1,40 +1,31 @@
 <template>
     <div style="height: 100%">
-        <nv-head page-type="消息"
-                :fix-head="true"
-                :show-menu="showMenu"
-                :message-count="no_read_len"
-                :need-add="true" ></nv-head>
-        <div class="page" >
+        <nv-head page-type="消息" :fix-head="true" :show-menu="showMenu" :message-count="no_read_len" :need-add="false">
+        </nv-head>
+        <div class="page">
             <ul class="tabs">
-                <li class="item br" :class='{"selected":selectItem === 2}' @click="changeItem(2)">已读消息</li>
-                <li class="item" :class='{"selected":selectItem === 1}' @click="changeItem(1)">
+                <li class="item br" :class='{"selected":selectItem === 1}' @click="changeItem(1)">
                     未读消息
-                    <i class="iconfont read" v-show="no_read_len > 0"
-                        @click="markall">&#xe60c;</i>
+                    <i class="iconfont read" v-show="no_read_len > 0" @click="markall">全标已读</i>
                 </li>
+                <li class="item" :class='{"selected":selectItem === 2}' @click="changeItem(2)">已读消息</li>
             </ul>
-            <div class="message markdown-body" v-for="(item, idx) in currentData">
-                <section class="user">
-                    <img class="head" :src="item.author.avatar_url" />
-                    <div class="info">
-                        <span class="cl">
-                            <span class="name">{{item.author.loginname}}</span>
-                            <span class="name" v-if="item.type==='at'">在回复中@了您</span>
-                            <span class="name" v-if="item.type==='reply'">回复了您的话题</span>
-                        </span>
-                        <span class="cr">
-                            <span class="name" v-text="getLastTimeStr(item.reply.create_at, true)"></span>
-                        </span>
-                    </div>
-                </section>
-                <div class="reply_content" v-html="item.reply.content"></div>
-                <router-link :to="{name:'topic',params:{id:item.topic.id}}">
-                    <div class="topic-title">
-                        话题：{{item.topic.title}}
-                    </div>
+            <div class="message" v-for="(item, idx) in currentData">
+                <router-link :to="{name:'topic',params:{id:item.topic_id}}">
+                    <section class="user">
+                        <div class="info">
+                            <span class="cl">
+                                {{item.content}}
+                            </span>
+                            <span class="cr">
+                                <span class="name" v-text="getLastTimeStr(item.created_at, true)"></span>
+                            </span>
+                        </div>
+                    </section>
                 </router-link>
             </div>
+
+
             <div class="no-data" v-show="noData">
                 <i class="iconfont icon-empty">&#xe60a;</i>
                 暂无数据!
