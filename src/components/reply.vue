@@ -63,7 +63,7 @@
                                     id: res.reply_id,
                                     author: {
                                         loginname: this.userInfo.loginname,
-                                        avatar_url: this.userInfo.avatar_url
+                                        avatar_url: this.userInfo.avatarUrl
                                     },
                                     content: this.content,
                                     ups: [],
